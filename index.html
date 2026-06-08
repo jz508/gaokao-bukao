@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年普通高等学校招生全国统一考试 补考报名系统</title>
+<style>
+/* ========== 全局重置 ========== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial,
+                 sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* ========== 页面容器 ========== */
+.page-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* ========== 首页（高考补考系统） ========== */
+.home-page {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e8f0fe 0%, #d4e4fc 25%, #c5d9f8 50%, #b8cef0 75%, #a8c4e8 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* 顶部红色政府横幅 */
+.gov-banner {
+    width: 100%;
+    background: linear-gradient(180deg, #c41e1e 0%, #a01818 100%);
+    padding: 6px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(164, 0, 0, 0.3);
+}
+
+.gov-banner-text {
+    color: #ffffff;
+    font-size: 13px;
+    letter-spacing: 4px;
+    font-weight: 500;
+}
+
+/* 国徽/标志区域 */
+.emblem-area {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.emblem-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #c41e1e 0%, #e83939 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(196, 30, 30, 0.35);
+}
+
+.emblem-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: #ffd700;
+}
+
+/* 标题区域 */
+.title-area {
+    margin-top: 18px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.main-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: 3px;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.sub-title {
+    font-size: 16px;
+    color: #555;
+    margin-top: 8px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+/* 分割线 */
+.divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #165DFF, transparent);
+    margin: 18px auto;
+    border-radius: 2px;
+}
+
+/* 通知区域 */
+.notice-area {
+    max-width: 680px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 20px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(22, 93, 255, 0.12);
+    line-height: 2;
+    font-size: 15px;
+    color: #333;
+    text-align: justify;
+}
+
+.notice-area .notice-label {
+    font-weight: 700;
+    color: #165DFF;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.notice-area .highlight {
+    color: #c41e1e;
+    font-weight: 600;
+}
+
+/* 按钮容器 */
+.btn-container {
+    margin: 24px 0 10px;
+    text-align: center;
+}
+
+/* 立即开始补考按钮 */
+.start-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #1e6fff 0%, #165DFF 50%, #0e42cc 100%);
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    padding: 18px 72px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(22, 93, 255, 0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(22, 93, 255, 0.55), inset 0 1px 0 rgba(255,255,255,0.25);
+    background: linear-gradient(180deg, #3885ff 0%, #1e6fff 50%, #165DFF 100%);
+}
+
+.start-btn:active {
+    transform: translateY(1px) scale(0.97);
+    box-shadow: 0 3px 12px rgba(22, 93, 255, 0.35), inset 0 2px 4px rgba(0,0,0,0.15);
+    transition: all 0.08s ease;
+}
+
+/* 按钮波纹效果 */
+.start-btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple-anim 0.6s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes ripple-anim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 底部 */
+.footer-area {
+    margin-top: auto;
+    padding: 20px 16px 28px;
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.footer-area p {
+    margin: 4px 0;
+}
+
+/* ========== 加载过渡层 ========== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 加载旋转动画 */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e0e0e0;
+    border-top-color: #165DFF;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin-top: 22px;
+    font-size: 16px;
+    color: #555;
+    letter-spacing: 2px;
+    animation: pulse-text 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ========== 表单页（美团外卖） ========== */
+.form-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #fff8e1 0%, #fff3c4 30%, #ffed99 100%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.form-page.active {
+    display: flex;
+}
+
+.form-page.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 美团顶部栏 */
+.meituan-header {
+    width: 100%;
+    background: linear-gradient(180deg, #FFD101 0%, #f5c800 100%);
+    padding: 14px 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.meituan-logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.meituan-logo-icon {
+    width: 40px;
+    height: 40px;
+    background: #FFD101;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.meituan-logo-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.meituan-brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #3d1e00;
+    letter-spacing: 2px;
+}
+
+/* 表单容器 */
+.form-container {
+    max-width: 600px;
+    width: 92%;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 28px 36px;
+    margin: 20px auto 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #3d1e00;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+}
+
+.form-subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 26px;
+}
+
+/* 表单组 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.form-label .required {
+    color: #e74c3c;
+    margin-left: 2px;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 15px;
+    border: 1.5px solid #dcdcdc;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #333;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    border-color: #FFD101;
+    background: #fffef8;
+    box-shadow: 0 0 0 3px rgba(255, 209, 1, 0.15);
+}
+
+.form-input.error,
+.form-textarea.error {
+    border-color: #e74c3c;
+    background: #fffafa;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.error-msg {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+.error-msg.show {
+    display: block;
+}
+
+/* 单选组 */
+.radio-group {
+    display: flex;
+    gap: 28px;
+    padding: 8px 0;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #333;
+    user-select: none;
+}
+
+.radio-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #FFD101;
+    cursor: pointer;
+}
+
+/* 提交按钮 */
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(180deg, #FFD101 0%, #f5c800 40%, #e6b800 100%);
+    color: #3d1e00;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 14px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 16px rgba(255, 209, 1, 0.4);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(255, 209, 1, 0.55);
+}
+
+.submit-btn:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(255, 209, 1, 0.3);
+    transition: all 0.08s ease;
+}
+
+/* 底部提示 */
+.form-footer-note {
+    text-align: center;
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 18px;
+}
+
+/* ========== 弹窗 ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-box {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 28px 24px;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.modal-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #FFD101 0%, #f5c800 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    box-shadow: 0 4px 16px rgba(255, 209, 1, 0.4);
+}
+
+.modal-icon svg {
+    width: 36px;
+    height: 36px;
+    fill: #3d1e00;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #3d1e00;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.modal-text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.9;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.modal-text .rider-id {
+    display: inline-block;
+    background: #fff8e1;
+    color: #c41e1e;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.modal-text .highlight-line {
+    display: block;
+    color: #FFD101;
+    font-weight: 700;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 8px;
+    text-shadow: 0 0 6px rgba(255, 209, 1, 0.4);
+    background: #3d1e00;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.modal-ok-btn {
+    background: linear-gradient(180deg, #FFD101 0%, #f5c800 100%);
+    color: #3d1e00;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 56px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    box-shadow: 0 3px 12px rgba(255, 209, 1, 0.35);
+    transition: all 0.2s ease;
+}
+
+.modal-ok-btn:hover {
+    box-shadow: 0 5px 18px rgba(255, 209, 1, 0.5);
+    transform: translateY(-1px);
+}
+
+.modal-ok-btn:active {
+    transform: scale(0.95);
+    transition: all 0.08s ease;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 600px) {
+    .main-title {
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+    .sub-title {
+        font-size: 13px;
+    }
+
+    .notice-area {
+        padding: 20px 16px;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .start-btn {
+        font-size: 18px;
+        padding: 16px 48px;
+        letter-spacing: 2px;
+    }
+
+    .form-container {
+        padding: 22px 16px 28px;
+        width: 95%;
+    }
+
+    .form-title {
+        font-size: 18px;
+    }
+
+    .gov-banner-text {
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+
+    .emblem-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .emblem-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .modal-box {
+        padding: 24px 18px 20px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="page-container">
+
+    <!-- ==================== 首页（高考补考系统） ==================== -->
+    <div class="home-page" id="homePage">
+        <!-- 红色政府横幅 -->
+        <div class="gov-banner">
+            <span class="gov-banner-text">中华人民共和国教育部 · 教育考试院</span>
+        </div>
+
+        <!-- 国徽图标 -->
+        <div class="emblem-area">
+            <div class="emblem-icon">
+                <!-- 简易五角星 SVG -->
+                <svg viewBox="0 0 64 64">
+                    <polygon points="32,4 39.5,24 61,24 43.5,36 49.5,56 32,44 14.5,56 20.5,36 3,24 24.5,24"
+                             fill="#ffd700" stroke="#daa520" stroke-width="1"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 标题 -->
+        <div class="title-area">
+            <h1 class="main-title">2026年普通高等学校招生<br>全国统一考试 补考报名系统</h1>
+            <p class="sub-title">教育部教育考试院 主办</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 通知说明 -->
+        <div class="notice-area">
+            <span class="notice-label">📢 重要通知</span>
+            根据教育部最新通知，2026年高考成绩复核工作已结束。部分考生因考试发挥失常，现开放一次补考机会。本次补考采用线上无纸化考试形式，成绩将直接计入高考总分。请符合条件的考生于<span class="highlight">今日24:00前</span>完成报名及考试。逾期未完成者，视为自动放弃补考资格，后续不再另行安排。
+        </div>
+
+        <!-- 按钮 -->
+        <div class="btn-container">
+            <button class="start-btn" id="startBtn" onclick="startExam()">
+                立即开始补考
+            </button>
+        </div>
+
+        <!-- 底部 -->
+        <div class="footer-area">
+            <p>版权所有 &copy; 2026 教育部教育考试院</p>
+            <p>技术支持：全国教育考试信息技术中心</p>
+            <p>京ICP备202606080001号-1 | 京公网安备 11010802020001号</p>
+        </div>
+    </div>
+
+    <!-- ==================== 加载过渡层 ==================== -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p class="loading-text">正在加载考试系统，请稍候...</p>
+    </div>
+
+    <!-- ==================== 表单页（美团外卖骑手入职申请表） ==================== -->
+    <div class="form-page" id="formPage">
+        <!-- 美团顶部 -->
+        <div class="meituan-header">
+            <div class="meituan-logo-area">
+                <div class="meituan-logo-icon">
+                    <!-- 美团袋鼠图标 -->
+                    <svg viewBox="0 0 64 64">
+                        <ellipse cx="32" cy="28" rx="16" ry="18" fill="#3d1e00"/>
+                        <circle cx="32" cy="20" r="11" fill="#3d1e00"/>
+                        <circle cx="28" cy="17" r="2.5" fill="#fff"/>
+                        <circle cx="36" cy="17" r="2.5" fill="#fff"/>
+                        <ellipse cx="32" cy="26" rx="4" ry="2.5" fill="#fff"/>
+                        <ellipse cx="20" cy="40" rx="8" ry="4" fill="#3d1e00"/>
+                        <ellipse cx="44" cy="40" rx="8" ry="4" fill="#3d1e00"/>
+                        <rect x="24" y="44" width="6" height="12" rx="3" fill="#3d1e00"/>
+                        <rect x="34" y="44" width="6" height="12" rx="3" fill="#3d1e00"/>
+                    </svg>
+                </div>
+                <span class="meituan-brand">美团外卖</span>
+            </div>
+        </div>
+
+        <!-- 表单容器 -->
+        <div class="form-container">
+            <h2 class="form-title">美团外卖骑手入职申请表</h2>
+            <p class="form-subtitle">请如实填写以下信息，带 * 为必填项</p>
+
+            <form id="riderForm" onsubmit="handleSubmit(event)" novalidate>
+                <!-- 姓名 -->
+                <div class="form-group">
+                    <label class="form-label">姓名 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="name" placeholder="请输入真实姓名" required>
+                    <span class="error-msg" id="nameError">请输入姓名</span>
+                </div>
+
+                <!-- 身份证号 -->
+                <div class="form-group">
+                    <label class="form-label">身份证号 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="idCard" placeholder="请输入18位身份证号码" maxlength="18" required>
+                    <span class="error-msg" id="idCardError">请输入有效的18位身份证号码</span>
+                </div>
+
+                <!-- 手机号码 -->
+                <div class="form-group">
+                    <label class="form-label">手机号码 <span class="required">*</span></label>
+                    <input type="tel" class="form-input" id="phone" placeholder="请输入11位手机号码" maxlength="11" required>
+                    <span class="error-msg" id="phoneError">请输入有效的11位手机号码</span>
+                </div>
+
+                <!-- 紧急联系人 -->
+                <div class="form-group">
+                    <label class="form-label">紧急联系人姓名及电话 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="emergency" placeholder="例如：张三 13800138000" required>
+                    <span class="error-msg" id="emergencyError">请输入紧急联系人信息</span>
+                </div>
+
+                <!-- 现居住地址 -->
+                <div class="form-group">
+                    <label class="form-label">现居住地址 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="address" placeholder="请输入详细居住地址" required>
+                    <span class="error-msg" id="addressError">请输入居住地址</span>
+                </div>
+
+                <!-- 有无电动车 -->
+                <div class="form-group">
+                    <label class="form-label">有无电动车 <span class="required">*</span></label>
+                    <div class="radio-group" id="ebikeGroup">
+                        <label class="radio-item">
+                            <input type="radio" name="ebike" value="有" required> 有
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="ebike" value="无"> 无
+                        </label>
+                    </div>
+                    <span class="error-msg" id="ebikeError">请选择有无电动车</span>
+                </div>
+
+                <!-- 有无健康证 -->
+                <div class="form-group">
+                    <label class="form-label">有无健康证 <span class="required">*</span></label>
+                    <div class="radio-group" id="healthGroup">
+                        <label class="radio-item">
+                            <input type="radio" name="health" value="有" required> 有
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="health" value="无"> 无
+                        </label>
+                    </div>
+                    <span class="error-msg" id="healthError">请选择有无健康证</span>
+                </div>
+
+                <!-- 可入职时间 -->
+                <div class="form-group">
+                    <label class="form-label">可入职时间 <span class="required">*</span></label>
+                    <input type="date" class="form-input" id="startDate" required>
+                    <span class="error-msg" id="startDateError">请选择可入职时间</span>
+                </div>
+
+                <!-- 自我介绍 -->
+                <div class="form-group">
+                    <label class="form-label">自我介绍 / 工作经历</label>
+                    <textarea class="form-textarea" id="intro" placeholder="请简单介绍自己或描述过往工作经历（选填）" rows="3"></textarea>
+                </div>
+
+                <!-- 提交按钮 -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    提交申请
+                </button>
+
+                <p class="form-footer-note">提交即表示同意《美团外卖骑手服务协议》及相关条款</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== 弹窗 ==================== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <div class="modal-icon">
+                <!-- 对勾图标 -->
+                <svg viewBox="0 0 64 64">
+                    <polyline points="16,34 28,46 50,22"
+                              fill="none" stroke="#3d1e00" stroke-width="6"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h3 class="modal-title">🎉 报名成功！</h3>
+            <p class="modal-text">
+                恭喜你！成功报名成为美团外卖骑手！<br>
+                你的专属骑手编号已生成：<span class="rider-id" id="riderIdDisplay">MT20260608XXXX</span><br>
+                请保持手机畅通，我们将在24小时内与你联系安排培训。<br>
+                高考失利不要紧，三百六十行，行行出状元！<br>
+                <span class="highlight-line">🛵 风里雨里，美团等你！</span>
+            </p>
+            <button class="modal-ok-btn" onclick="closeModal()">确 定</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+/* ==================== 生成随机骑手编号 ==================== */
+function generateRiderId() {
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let randomPart = '';
+    for (let i = 0; i < 4; i++) {
+        randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return 'MT20260608' + randomPart;
+}
+
+/* ==================== 按钮波纹效果 ==================== */
+document.getElementById('startBtn').addEventListener('click', function(e) {
+    // 移除旧波纹
+    const oldRipple = this.querySelector('.ripple');
+    if (oldRipple) oldRipple.remove();
+
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = size + 'px';
+    ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+
+    this.appendChild(ripple);
+});
+
+/* ==================== 开始考试 → 过渡动画 ==================== */
+function startExam() {
+    const homePage = document.getElementById('homePage');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const formPage = document.getElementById('formPage');
+
+    // 首页淡出
+    homePage.style.opacity = '0';
+    homePage.style.transform = 'scale(0.96)';
+
+    // 加载层淡入
+    setTimeout(function() {
+        loadingOverlay.classList.add('active');
+    }, 150);
+
+    // 1.5秒后显示表单
+    setTimeout(function() {
+        // 隐藏加载层
+        loadingOverlay.classList.remove('active');
+
+        // 隐藏首页
+        homePage.style.display = 'none';
+
+        // 显示表单页
+        formPage.classList.add('active');
+
+        // 表单淡入（需要在display:flex之后再执行）
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                formPage.classList.add('visible');
+            });
+        });
+
+        // 滚动到顶部
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1650);
+}
+
+/* ==================== 表单验证与提交 ==================== */
+function handleSubmit(event) {
+    event.preventDefault();
+    let isValid = true;
+
+    // 清除所有错误
+    document.querySelectorAll('.form-input.error, .form-textarea.error').forEach(function(el) {
+        el.classList.remove('error');
+    });
+    document.querySelectorAll('.error-msg.show').forEach(function(el) {
+        el.classList.remove('show');
+    });
+
+    // 验证姓名
+    var nameInput = document.getElementById('name');
+    if (!nameInput.value.trim()) {
+        showError(nameInput, 'nameError');
+        isValid = false;
+    }
+
+    // 验证身份证号（18位）
+    var idCardInput = document.getElementById('idCard');
+    var idCardValue = idCardInput.value.trim();
+    if (!idCardValue || idCardValue.length !== 18 || !/^\d{17}[\dXx]$/.test(idCardValue)) {
+        showError(idCardInput, 'idCardError');
+        isValid = false;
+    }
+
+    // 验证手机号（11位，1开头）
+    var phoneInput = document.getElementById('phone');
+    if (!phoneInput.value.trim() || !/^1\d{10}$/.test(phoneInput.value.trim())) {
+        showError(phoneInput, 'phoneError');
+        isValid = false;
+    }
+
+    // 验证紧急联系人
+    var emergencyInput = document.getElementById('emergency');
+    if (!emergencyInput.value.trim()) {
+        showError(emergencyInput, 'emergencyError');
+        isValid = false;
+    }
+
+    // 验证地址
+    var addressInput = document.getElementById('address');
+    if (!addressInput.value.trim()) {
+        showError(addressInput, 'addressError');
+        isValid = false;
+    }
+
+    // 验证电动车
+    var ebikeSelected = document.querySelector('input[name="ebike"]:checked');
+    if (!ebikeSelected) {
+        document.getElementById('ebikeError').classList.add('show');
+        isValid = false;
+    } else {
+        document.getElementById('ebikeError').classList.remove('show');
+    }
+
+    // 验证健康证
+    var healthSelected = document.querySelector('input[name="health"]:checked');
+    if (!healthSelected) {
+        document.getElementById('healthError').classList.add('show');
+        isValid = false;
+    } else {
+        document.getElementById('healthError').classList.remove('show');
+    }
+
+    // 验证入职时间
+    var dateInput = document.getElementById('startDate');
+    if (!dateInput.value.trim()) {
+        showError(dateInput, 'startDateError');
+        isValid = false;
+    }
+
+    // 验证通过则弹窗
+    if (isValid) {
+        // 生成骑手ID
+        var riderId = generateRiderId();
+        document.getElementById('riderIdDisplay').textContent = riderId;
+
+        // 显示弹窗
+        var modal = document.getElementById('modalOverlay');
+        modal.classList.add('active');
+
+        // 重置表单
+        document.getElementById('riderForm').reset();
+    }
+}
+
+/* 显示单个字段错误 */
+function showError(inputElement, errorElementId) {
+    inputElement.classList.add('error');
+    document.getElementById(errorElementId).classList.add('show');
+
+    // 点击输入框时清除错误
+    inputElement.addEventListener('focus', function clearError() {
+        inputElement.classList.remove('error');
+        document.getElementById(errorElementId).classList.remove('show');
+        inputElement.removeEventListener('focus', clearError);
+    }, { once: true });
+}
+
+/* ==================== 弹窗关闭 ==================== */
+function closeModal() {
+    var modal = document.getElementById('modalOverlay');
+    modal.classList.remove('active');
+}
+
+/* 点击弹窗背景也可关闭 */
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+/* ==================== 单选按钮变化时清除错误 ==================== */
+document.querySelectorAll('input[name="ebike"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        document.getElementById('ebikeError').classList.remove('show');
+    });
+});
+
+document.querySelectorAll('input[name="health"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        document.getElementById('healthError').classList.remove('show');
+    });
+});
+</script>
+
+</body>
+</html>
